@@ -117,6 +117,7 @@ const SnakeGame = ({ mode = 'adventure', level = 1, onBackToHome, onLevelComplet
 
   // Handle mobile/button direction change
   const handleArrowClick = useCallback((dir) => {
+    // Check if the new direction is not opposite to current direction
     if (direction.x + dir.x !== 0 || direction.y + dir.y !== 0) {
       setNextDirection(dir)
     }
@@ -128,8 +129,14 @@ const SnakeGame = ({ mode = 'adventure', level = 1, onBackToHome, onLevelComplet
 
     const gameInterval = setInterval(() => {
       setSnake(prevSnake => {
-        // Update direction based on currently pressed keys
-        const newNextDirection = updateDirectionFromKeys(direction)
+        // Update direction based on currently pressed keys or button clicks
+        let newNextDirection = updateDirectionFromKeys(direction)
+        
+        // If a button direction was set and is valid, use it
+        if (nextDirection !== direction && (direction.x + nextDirection.x === 0 || direction.y + nextDirection.y === 0)) {
+          newNextDirection = nextDirection
+        }
+        
         setDirection(newNextDirection)
 
         const head = prevSnake[0]
@@ -178,7 +185,7 @@ const SnakeGame = ({ mode = 'adventure', level = 1, onBackToHome, onLevelComplet
     }, gameSpeed)
 
     return () => clearInterval(gameInterval)
-  }, [food, gameOver, isPaused, levelComplete, gameSpeed, isLevelMode, currentLevelConfig, obstacles, score, generateFood, direction, updateDirectionFromKeys])
+  }, [food, gameOver, isPaused, levelComplete, gameSpeed, isLevelMode, currentLevelConfig, obstacles, score, generateFood, direction, nextDirection, updateDirectionFromKeys])
 
   // Setup keyboard listeners
   useEffect(() => {

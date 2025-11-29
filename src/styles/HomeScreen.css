@@ -1,0 +1,305 @@
+/* Home Screen Container */
+.home-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+}
+
+.home-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.game-title {
+  font-size: 3.5em;
+  color: #333;
+  text-align: center;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.subtitle {
+  font-size: 1.3em;
+  color: #666;
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+
+/* Mode Container */
+.mode-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.mode-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mode-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.adventure-card {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(102, 126, 234, 0.02) 100%);
+}
+
+.adventure-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+}
+
+.level-card {
+  border-color: #764ba2;
+  background: linear-gradient(135deg, rgba(118, 75, 162, 0.05) 0%, rgba(118, 75, 162, 0.02) 100%);
+}
+
+.level-card:hover {
+  border-color: #764ba2;
+  box-shadow: 0 15px 40px rgba(118, 75, 162, 0.3);
+}
+
+.mode-icon {
+  font-size: 3em;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.mode-card h2 {
+  font-size: 1.8em;
+  color: #333;
+  margin: 0;
+  text-align: center;
+}
+
+.adventure-card h2 {
+  color: #667eea;
+}
+
+.level-card h2 {
+  color: #764ba2;
+}
+
+.mode-description {
+  color: #666;
+  font-size: 1em;
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Mode Features */
+.mode-features {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.mode-features li {
+  color: #555;
+  padding: 8px 0;
+  font-size: 0.95em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adventure-card .mode-features li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: #667eea;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.level-card .mode-features li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: #764ba2;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Mode Button */
+.mode-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  margin-top: 10px;
+}
+
+.mode-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.mode-button:active {
+  transform: scale(0.98);
+}
+
+/* How to Play */
+.how-to-play {
+  background: #f8f9ff;
+  border-left: 4px solid #667eea;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.how-to-play h3 {
+  color: #333;
+  margin: 0 0 10px 0;
+  font-size: 1.3em;
+}
+
+.how-to-play p {
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+  font-size: 0.95em;
+}
+
+.how-to-play strong {
+  color: #667eea;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-content {
+    padding: 25px;
+  }
+
+  .game-title {
+    font-size: 2.5em;
+  }
+
+  .subtitle {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+  }
+
+  .mode-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .mode-card {
+    padding: 20px;
+  }
+
+  .mode-card h2 {
+    font-size: 1.5em;
+  }
+
+  .mode-description {
+    font-size: 0.9em;
+  }
+
+  .mode-icon {
+    font-size: 2.5em;
+  }
+
+  .how-to-play p {
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-screen {
+    padding: 10px;
+  }
+
+  .home-content {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .game-title {
+    font-size: 2em;
+    margin-bottom: 5px;
+  }
+
+  .subtitle {
+    font-size: 1em;
+    margin-bottom: 20px;
+  }
+
+  .mode-card {
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .mode-icon {
+    font-size: 2em;
+  }
+
+  .mode-card h2 {
+    font-size: 1.3em;
+  }
+
+  .mode-description {
+    font-size: 0.85em;
+  }
+
+  .mode-features li {
+    font-size: 0.85em;
+  }
+
+  .mode-button {
+    padding: 10px 20px;
+    font-size: 0.9em;
+  }
+}

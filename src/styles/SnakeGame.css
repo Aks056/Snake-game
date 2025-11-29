@@ -1,0 +1,341 @@
+/* Snake Game Container */
+.snake-game-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.game-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.back-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-size: 0.9em;
+}
+
+.back-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.snake-game-container h1 {
+  color: #333;
+  margin: 0;
+  font-size: 1.8em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  text-align: center;
+}
+
+.game-stats {
+  display: flex;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+/* Game Info */
+.game-info {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.score,
+.status,
+.target,
+.speed {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #667eea;
+  background: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.status {
+  color: #764ba2;
+}
+
+/* Game Board */
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  gap: 1px;
+  background-color: #333;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 1;
+}
+
+.cell {
+  background-color: #1a1a1a;
+  aspect-ratio: 1;
+  border: 0.5px solid #333;
+  transition: background-color 0.05s ease;
+}
+
+.cell.snake {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 0 8px rgba(102, 126, 234, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cell.snake-head {
+  background: linear-gradient(135deg, #76d7a3 0%, #52b982 100%);
+  box-shadow: 0 0 12px rgba(118, 215, 163, 0.9);
+  animation: headBounce 0.3s ease-in-out;
+  transition: transform 0.1s ease-out;
+}
+
+@keyframes headBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.snake-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eye {
+  position: absolute;
+  width: 30%;
+  aspect-ratio: 1;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.eye::before {
+  content: '';
+  width: 60%;
+  aspect-ratio: 1;
+  background: #222;
+  border-radius: 50%;
+  animation: eyeBlink 4s ease-in-out infinite;
+}
+
+.eye-left {
+  left: 10%;
+  top: 15%;
+}
+
+.eye-right {
+  right: 10%;
+  top: 15%;
+}
+
+.eye-left::before {
+  animation-delay: 0s;
+}
+
+.eye-right::before {
+  animation-delay: 0.1s;
+}
+
+@keyframes eyeBlink {
+  0%, 10%, 20%, 100% { 
+    transform: scaleY(1);
+  }
+  5%, 15% { 
+    transform: scaleY(0.1);
+  }
+}
+
+.mouth {
+  position: absolute;
+  width: 40%;
+  height: 20%;
+  bottom: 15%;
+  border: 2px solid #222;
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+  animation: mouthTalk 0.4s ease-in-out infinite;
+}
+
+@keyframes mouthTalk {
+  0%, 100% { 
+    transform: scaleY(1);
+  }
+  50% { 
+    transform: scaleY(1.2);
+  }
+}
+
+.cell.food {
+  background-color: #ff6b6b;
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+  border-radius: 50%;
+  animation: foodBounce 0.5s ease-in-out infinite;
+}
+
+@keyframes foodBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.cell.obstacle {
+  background-color: #ff9f43;
+  box-shadow: 0 0 12px rgba(255, 159, 67, 0.8), inset 0 0 5px rgba(0, 0, 0, 0.3);
+  animation: obstacleWarning 0.8s ease-in-out infinite;
+  border: 1px solid #ff7c1f;
+  position: relative;
+}
+
+@keyframes obstacleWarning {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(255, 159, 67, 0.8); }
+  50% { transform: scale(0.95); box-shadow: 0 0 18px rgba(255, 159, 67, 1); }
+}
+
+/* Controls Section */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.instructions {
+  background: #f0f0f0;
+  padding: 15px;
+  border-radius: 8px;
+  color: #333;
+  font-size: 0.95em;
+}
+
+.instructions p {
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
+.game-over-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.next-level-button {
+  background: linear-gradient(135deg, #52b982 0%, #38a169 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(82, 185, 130, 0.4);
+}
+
+.next-level-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(82, 185, 130, 0.6);
+}
+
+.next-level-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(82, 185, 130, 0.4);
+}
+
+.reset-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.reset-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.reset-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+}
+
+.back-button-bottom {
+  background: #999;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.back-button-bottom:hover {
+  background: #777;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .snake-game-container {
+    padding: 20px;
+  }
+
+  .snake-game-container h1 {
+    font-size: 2em;
+  }
+
+  .game-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .instructions {
+    font-size: 0.85em;
+  }
+
+  .reset-button {
+    padding: 10px 20px;
+    font-size: 0.95em;
+  }
+}

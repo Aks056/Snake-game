@@ -115,10 +115,11 @@ const SnakeGame = ({ mode = 'adventure', level = 1, onBackToHome, onLevelComplet
     return newDirection
   }, [])
 
-  // Handle mobile/button direction change
+  // Handle mobile/button direction change - UPDATE IMMEDIATELY
   const handleArrowClick = useCallback((dir) => {
-    // Allow direction change if it's not directly opposite (0 means no collision)
+    // Check if it's a valid move (not directly opposite)
     if (direction.x + dir.x !== 0 || direction.y + dir.y !== 0) {
+      setDirection(dir)
       setNextDirection(dir)
     }
   }, [direction])
@@ -129,26 +130,16 @@ const SnakeGame = ({ mode = 'adventure', level = 1, onBackToHome, onLevelComplet
 
     const gameInterval = setInterval(() => {
       setSnake(prevSnake => {
-        // Start with keyboard input
-        let newNextDirection = updateDirectionFromKeys(direction)
+        // Use keyboard input to potentially override button clicks
+        const keyboardDirection = updateDirectionFromKeys(direction)
         
-        // If nextDirection was set by button click and is valid, use it instead
-        if (nextDirection !== direction) {
-          // Check if it's a valid move (not directly opposite)
-          if (direction.x + nextDirection.x === 0 && direction.y + nextDirection.y === 0) {
-            // This is opposite, don't use it
-          } else {
-            // Valid move from button, use it
-            newNextDirection = nextDirection
-          }
-        }
+        // Use keyboard direction if available, otherwise use current direction (which may be from button click)
+        const finalDirection = keyboardDirection !== direction ? keyboardDirection : direction
         
-        setDirection(newNextDirection)
-
         const head = prevSnake[0]
         const newHead = {
-          x: (head.x + newNextDirection.x + GRID_SIZE) % GRID_SIZE,
-          y: (head.y + newNextDirection.y + GRID_SIZE) % GRID_SIZE
+          x: (head.x + finalDirection.x + GRID_SIZE) % GRID_SIZE,
+          y: (head.y + finalDirection.y + GRID_SIZE) % GRID_SIZE
         }
 
         // Check collision with self
@@ -191,7 +182,7 @@ const SnakeGame = ({ mode = 'adventure', level = 1, onBackToHome, onLevelComplet
     }, gameSpeed)
 
     return () => clearInterval(gameInterval)
-  }, [food, gameOver, isPaused, levelComplete, gameSpeed, isLevelMode, currentLevelConfig, obstacles, score, generateFood, direction, nextDirection, updateDirectionFromKeys])
+  }, [food, gameOver, isPaused, levelComplete, gameSpeed, isLevelMode, currentLevelConfig, obstacles, score, generateFood, direction, updateDirectionFromKeys])
 
   // Setup keyboard listeners
   useEffect(() => {

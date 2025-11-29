@@ -4,8 +4,11 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  width: 100%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 10px;
+  overflow-x: hidden;
 }
 
 * {
@@ -14,6 +17,26 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  width: 100%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow-x: hidden;
+}
+
+/* Mobile viewport optimization */
+@viewport {
+  width: device-width;
+  zoom: 1;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 5px;
+  }
 }

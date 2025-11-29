@@ -228,6 +228,7 @@
   flex-direction: column;
   gap: 15px;
   align-items: center;
+  width: 100%;
 }
 
 .instructions {
@@ -236,11 +237,105 @@
   border-radius: 8px;
   color: #333;
   font-size: 0.95em;
+  width: 100%;
 }
 
 .instructions p {
   margin: 5px 0;
   line-height: 1.5;
+}
+
+/* Mobile Controls */
+.mobile-controls {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+}
+
+.arrow-pad {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  width: fit-content;
+}
+
+.arrow-button {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.6);
+}
+
+.arrow-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+}
+
+.arrow-up {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.arrow-row {
+  display: flex;
+  gap: 10px;
+  grid-column: 1 / 4;
+  justify-content: center;
+}
+
+.arrow-left {
+  width: 60px;
+  height: 60px;
+}
+
+.arrow-down {
+  width: 60px;
+  height: 60px;
+}
+
+.arrow-right {
+  width: 60px;
+  height: 60px;
+}
+
+.pause-button {
+  width: 70px;
+  height: 50px;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff9f43 0%, #ff7c1f 100%);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(255, 159, 67, 0.4);
+}
+
+.pause-button:active {
+  transform: scale(0.95);
+}
+
+.pause-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(255, 159, 67, 0.6);
 }
 
 .game-over-menu {
@@ -318,24 +413,156 @@
 /* Responsive Design */
 @media (max-width: 600px) {
   .snake-game-container {
-    padding: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 100%;
+  }
+
+  .game-header {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
   }
 
   .snake-game-container h1 {
-    font-size: 2em;
+    font-size: 1.5em;
+  }
+
+  .game-stats {
+    gap: 8px;
+    font-size: 0.9em;
+    width: 100%;
+    justify-content: space-around;
   }
 
   .game-info {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+  }
+
+  .score,
+  .status,
+  .target,
+  .speed {
+    font-size: 1em;
+    padding: 8px 15px;
+  }
+
+  .game-board {
+    max-width: 100%;
+    margin-bottom: 15px;
   }
 
   .instructions {
+    font-size: 0.8em;
+    padding: 10px;
+    display: none;
+  }
+
+  /* Show mobile controls on mobile devices */
+  .mobile-controls {
+    display: flex;
+  }
+
+  .arrow-button {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    gap: 8px;
+  }
+
+  .arrow-pad {
+    gap: 8px;
+  }
+
+  .pause-button {
+    width: 60px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .reset-button,
+  .next-level-button,
+  .back-button-bottom {
+    padding: 10px 20px;
+    font-size: 0.9em;
+    width: 100%;
+  }
+
+  .back-button {
+    padding: 8px 12px;
     font-size: 0.85em;
   }
 
-  .reset-button {
-    padding: 10px 20px;
-    font-size: 0.95em;
+  .game-over-menu {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .snake-game-container {
+    padding: 12px;
+  }
+
+  .game-header {
+    gap: 8px;
+  }
+
+  .snake-game-container h1 {
+    font-size: 1.3em;
+  }
+
+  .game-stats {
+    font-size: 0.85em;
+    gap: 5px;
+  }
+
+  .score,
+  .status,
+  .target,
+  .speed {
+    font-size: 0.9em;
+    padding: 6px 10px;
+  }
+
+  .game-info {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .game-board {
+    margin-bottom: 12px;
+  }
+
+  .arrow-button {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .arrow-pad {
+    gap: 6px;
+  }
+
+  .pause-button {
+    width: 55px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .reset-button,
+  .next-level-button,
+  .back-button-bottom {
+    padding: 8px 15px;
+    font-size: 0.85em;
+  }
+
+  .back-button {
+    padding: 6px 10px;
+    font-size: 0.8em;
+  }
+
+  .mobile-controls {
+    gap: 15px;
   }
 }

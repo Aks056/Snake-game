@@ -115,6 +115,13 @@ const SnakeGame = ({ mode = 'adventure', level = 1, onBackToHome, onLevelComplet
     return newDirection
   }, [])
 
+  // Handle mobile/button direction change
+  const handleArrowClick = useCallback((dir) => {
+    if (direction.x + dir.x !== 0 || direction.y + dir.y !== 0) {
+      setNextDirection(dir)
+    }
+  }, [direction])
+
   // Game loop
   useEffect(() => {
     if (gameOver || isPaused || levelComplete) return
@@ -291,6 +298,49 @@ const SnakeGame = ({ mode = 'adventure', level = 1, onBackToHome, onLevelComplet
       <div className="controls">
         <div className="instructions">
           <p>Arrow Keys or WASD to move | Space to pause</p>
+        </div>
+
+        {/* Mobile Arrow Controls */}
+        <div className="mobile-controls">
+          <div className="arrow-pad">
+            <button
+              className="arrow-button arrow-up"
+              onClick={() => handleArrowClick(DIRECTIONS.UP)}
+              aria-label="Move Up"
+            >
+              ▲
+            </button>
+            <div className="arrow-row">
+              <button
+                className="arrow-button arrow-left"
+                onClick={() => handleArrowClick(DIRECTIONS.LEFT)}
+                aria-label="Move Left"
+              >
+                ◄
+              </button>
+              <button
+                className="arrow-button arrow-down"
+                onClick={() => handleArrowClick(DIRECTIONS.DOWN)}
+                aria-label="Move Down"
+              >
+                ▼
+              </button>
+              <button
+                className="arrow-button arrow-right"
+                onClick={() => handleArrowClick(DIRECTIONS.RIGHT)}
+                aria-label="Move Right"
+              >
+                ►
+              </button>
+            </div>
+          </div>
+          <button
+            className="pause-button"
+            onClick={() => setIsPaused(prev => !prev)}
+            aria-label="Pause/Resume"
+          >
+            {isPaused ? '▶' : '⏸'}
+          </button>
         </div>
 
         {(gameOver || levelComplete) && (

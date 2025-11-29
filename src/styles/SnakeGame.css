@@ -7,6 +7,9 @@
   text-align: center;
   max-width: 600px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
 }
 
 .game-header {
@@ -416,6 +419,7 @@
     padding: 15px;
     border-radius: 10px;
     max-width: 100%;
+    min-height: 100vh;
   }
 
   .game-header {
@@ -451,6 +455,7 @@
   .game-board {
     max-width: 100%;
     margin-bottom: 15px;
+    flex-grow: 1;
   }
 
   .instructions {
@@ -462,6 +467,7 @@
   /* Show mobile controls on mobile devices */
   .mobile-controls {
     display: flex;
+    margin-top: auto;
   }
 
   .arrow-button {
@@ -502,6 +508,7 @@
 @media (max-width: 480px) {
   .snake-game-container {
     padding: 12px;
+    min-height: 100vh;
   }
 
   .game-header {
@@ -532,6 +539,7 @@
 
   .game-board {
     margin-bottom: 12px;
+    flex-grow: 1;
   }
 
   .arrow-button {

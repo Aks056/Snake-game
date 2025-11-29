@@ -117,7 +117,7 @@ const SnakeGame = ({ mode = 'adventure', level = 1, onBackToHome, onLevelComplet
 
   // Handle mobile/button direction change
   const handleArrowClick = useCallback((dir) => {
-    // Check if the new direction is not opposite to current direction
+    // Allow direction change if it's not directly opposite (0 means no collision)
     if (direction.x + dir.x !== 0 || direction.y + dir.y !== 0) {
       setNextDirection(dir)
     }
@@ -129,12 +129,18 @@ const SnakeGame = ({ mode = 'adventure', level = 1, onBackToHome, onLevelComplet
 
     const gameInterval = setInterval(() => {
       setSnake(prevSnake => {
-        // Update direction based on currently pressed keys or button clicks
+        // Start with keyboard input
         let newNextDirection = updateDirectionFromKeys(direction)
         
-        // If a button direction was set and is valid, use it
-        if (nextDirection !== direction && (direction.x + nextDirection.x === 0 || direction.y + nextDirection.y === 0)) {
-          newNextDirection = nextDirection
+        // If nextDirection was set by button click and is valid, use it instead
+        if (nextDirection !== direction) {
+          // Check if it's a valid move (not directly opposite)
+          if (direction.x + nextDirection.x === 0 && direction.y + nextDirection.y === 0) {
+            // This is opposite, don't use it
+          } else {
+            // Valid move from button, use it
+            newNextDirection = nextDirection
+          }
         }
         
         setDirection(newNextDirection)
